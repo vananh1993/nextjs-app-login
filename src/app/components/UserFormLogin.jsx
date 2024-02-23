@@ -31,7 +31,7 @@ const UserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
-    const res = await fetch(`${process.env.NEXT_URL_BACKEND}/login`, {
+    const res = await fetch('http://localhost:8000/login', {
       method: "POST",
       body: JSON.stringify({ formData }),
       "content-type": "application/json",
