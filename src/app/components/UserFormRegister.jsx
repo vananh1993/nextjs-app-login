@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { TextField, Button, Grid, Container } from "@mui/material";
 
 
+
 const UserForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({});
@@ -17,6 +18,8 @@ const UserForm = () => {
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
+    // const email = e.target.email;
+    // const password = e.target.password;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -39,10 +42,14 @@ const UserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
-    const res = await fetch(`${process.env.NEXT_URL_BACKEND}/register`, {
+    console.log('dbsjfbj');
+    const res = await fetch(`${process.env.NEXT_URL_BACKEND}/users`, {
       method: "POST",
       body: JSON.stringify({ formData }),
-      "content-type": "application/json",
+      headers: {
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
     });
 
     if (!res.ok) {
@@ -74,6 +81,8 @@ const UserForm = () => {
                   name="username"
                   as={TextField}
                   label="Username"
+                  onChange={handleChange}
+                  value={formData.name}
                   error={touched.username && Boolean(errors.username)}
                   helperText={touched.username && errors.username}
                   fullWidth
@@ -84,6 +93,8 @@ const UserForm = () => {
                   name="email"
                   as={TextField}
                   label="Email"
+                  onChange={handleChange}
+                  value={formData.email}
                   error={touched.email && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
                   fullWidth
@@ -94,7 +105,9 @@ const UserForm = () => {
                   name="password"
                   type="password"
                   as={TextField}
+                  onChange={handleChange}
                   label="Password"
+                  value={formData.password}
                   error={touched.password && Boolean(errors.password)}
                   helperText={touched.password && errors.password}
                   fullWidth
