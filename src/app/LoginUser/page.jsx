@@ -1,4 +1,4 @@
-import UserForm from "@/components/UserFormRegister";
+import UserForm from "@/components/UserFormLogin";
 
 const CreateUser = () => {
   return (
