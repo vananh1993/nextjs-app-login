@@ -42,14 +42,14 @@ const UserForm = () => {
   const onSubmit = async (data) => {
     // e.preventDefault();
     setErrorMessage("");
-    const res = await fetch('http://localhost:8000/users', {
+    const res = await fetch('https://dvinci.pro/the-gioi-an-dam-training/api/api/register', {
       method: "POST",
       body: JSON.stringify({ ...data }),
       headers: {
           "Content-Type": "application/json",
           // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+      }
+    }, 5000);
 
     if (!res.ok) {
       const response = await res.json();
@@ -59,26 +59,7 @@ const UserForm = () => {
       router.push("/");
     }
   }
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setErrorMessage("");
-  //   const res = await fetch('http://localhost:8000/users', {
-  //     method: "POST",
-  //     body: JSON.stringify({ formData }),
-  //     headers: {
-  //         "Content-Type": "application/json",
-  //         // 'Content-Type': 'application/x-www-form-urlencoded',
-  //     },
-  //   });
 
-  //   if (!res.ok) {
-  //     const response = await res.json();
-  //     setErrorMessage(response.message);
-  //   } else {
-  //     router.refresh();
-  //     router.push("/");
-  //   }
-  // };
 
   return (
     <form
