@@ -1,5 +1,6 @@
 'use client'
 import * as React from 'react';
+import { useRouter } from "next/navigation";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,11 +14,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { setAuthToken } from '@/app/helpers/authHelper';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+  const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -34,6 +37,11 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    setAuthToken(null);
+    router.push("/LoginUser");
   };
 
   return (
@@ -93,6 +101,10 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
+
+              <MenuItem key={'logout'} onClick={handleLogout}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -124,6 +136,10 @@ function ResponsiveAppBar() {
                 {page}
               </Button>
             ))}
+
+            <Button key={'logout'} onClick={handleLogout} sx={{ my: 2, color: 'white', display: 'block' }}>
+              Logout
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

@@ -2,17 +2,27 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import axios from 'axios';
 // import FormControl from '@mui/material/FormControl';
 // or
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField, Button, Grid, Container } from "@mui/material";
-
+import { useForm, SubmitHandler } from "react-hook-form"
+import { setAuthToken, hasAuthToken } from '@/app/helpers/authHelper';
 
 const UserForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+
+  if (hasAuthToken()) {
+    return router.push("/");
+  }
+
+  // headers: {
+  //   Authorization: `Bearer ${token}`
+  // }
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -27,71 +37,89 @@ const UserForm = () => {
     password: Yup.string().required("Password is required")
   });
 
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const { register, handleSubmit } = useForm()
+  const onSubmit = async (data) => {
+    // e.preventDefault();
     setErrorMessage("");
-    const res = await fetch('http://localhost:8000/login', {
-      method: "POST",
-      body: JSON.stringify({ formData }),
-      "content-type": "application/json",
-    });
 
-    if (!res.ok) {
-      const response = await res.json();
-      setErrorMessage(response.message);
-    } else {
+    try {
+      const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {...data});
+
+      setAuthToken(res.data.token);
       router.refresh();
       router.push("/");
+    } catch ({response}) {
+      if (response.status === 422) {
+        setErrorMessage(Object.values(response.data.errors)[0][0]);
+      }
     }
-  };
+
+    // const res = await fetch('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {
+    //   method: "POST",
+    //   body: JSON.stringify({ ...data }),
+    //   headers: {
+    //       "Content-Type": "application/json",
+    //       // 'Content-Type': 'application/x-www-form-urlencoded',
+    //   }
+    // }, 5000);
+  }
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setErrorMessage("");
+  //   const res = await fetch('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {
+  //     method: "POST",
+  //     body: JSON.stringify({ formData }),
+  //     "content-type": "application/json",
+  //   });
+
+  //   if (!res.ok) {
+  //     const response = await res.json();
+  //     setErrorMessage(response.message);
+  //   } else {
+  //     router.refresh();
+  //     router.push("/");
+  //   }
+  // };
 
   return (
-    <Formik
-      initialValues={{ email: "", password: "" }}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      {({ errors, touched }) => (
-        <Form>
-          <Container maxWidth="xs">
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Field
-                  name="email"
-                  as={TextField}
-                  label="Email"
-                  error={touched.email && Boolean(errors.email)}
-                  helperText={touched.email && errors.email}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  name="password"
-                  type="password"
-                  as={TextField}
-                  label="Password"
-                  error={touched.password && Boolean(errors.password)}
-                  helperText={touched.password && errors.password}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                >
-                  Login
-                </Button>
-              </Grid>
-            </Grid>
-          </Container>
-        </Form>
-      )}
-    </Formik>
+    <form
+    onSubmit={handleSubmit(onSubmit)}
+    method="post"
+    className="flex flex-col gap-3 w-1/2"
+  >
+    <h1>Create New User</h1>
+    <label>Full Name</label>
+    <p className="text-red-500">Looi : {errorMessage}</p>
+    <label>Email</label>
+    <input
+      id="email"
+      name="email"
+      type="text"
+      {...register("email")}
+      // onChange={handleChange}
+      required={true}
+      // value={formData.email}
+      value="vananh.test@gmail.com"
+      className="m-2 bg-slate-400 rounded"
+    />
+    <label>Password</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      {...register("password")}
+      // onChange={handleChange}
+      required={true}
+      // value={formData.password}
+      className="m-2 bg-slate-400 rounded"
+    />
+    <input
+      type="submit"
+      value="Login"
+      className="bg-blue-300 hover:bg-blue-100"
+    />
+  </form>
   );
 };
 
