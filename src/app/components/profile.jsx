@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { checkNullAuthToken } from '@/app/helpers/authHelper';
 
 import { useRouter } from "next/navigation";
-// import { setAuthToken, hasAuthToken } from '@/app/helpers/authHelper';
 
 const Profile = () => {
       const router = useRouter();

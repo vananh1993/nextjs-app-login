@@ -13,7 +13,8 @@ const Nav = () => {
         setToken(localStorage.getItem('apiToken'))
     }, [])
     const handleLogout = () => {
-        removeAuthToken;
+        console.log(111111);
+        removeAuthToken();
         // router.push("/LoginUser");
     };
     
@@ -26,7 +27,7 @@ const Nav = () => {
             <Link href="/Users">Users</Link>
             <Link href="/Profile">Profile</Link>
             
-            {setToken !== null ? (
+            {Token ? (
                 <button onClick={handleLogout}>Logout</button>
             ) : (
                 <Link href="/LoginUser">Login</Link>
