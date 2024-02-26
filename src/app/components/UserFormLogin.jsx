@@ -17,7 +17,8 @@ const UserForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   if (hasAuthToken()) {
-    return router.push("/");
+    router.refresh();
+    router.push("/");
   }
 
   // headers: {

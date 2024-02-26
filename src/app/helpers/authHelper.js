@@ -6,3 +6,7 @@ export const getAuthToken = () => localStorage.getItem('apiToken')
 
 export const hasAuthToken = () => getAuthToken() !== null
 
+export const checkNullAuthToken = () => getAuthToken() === null
+
+export const removeAuthToken = () => localStorage.removeItem("apiToken");
+
