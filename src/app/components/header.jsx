@@ -13,9 +13,10 @@ const Nav = () => {
         setToken(localStorage.getItem('apiToken'))
     }, [])
     const handleLogout = () => {
-        console.log(111111);
+        // console.log(111111);
         removeAuthToken();
-        // router.push("/LoginUser");
+        router.refresh();
+        router.push('/LoginUser');
     };
     
     return (
