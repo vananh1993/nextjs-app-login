@@ -1,20 +1,20 @@
 'use client'
 import Link from "next/link";
-import { useEffect } from "react";
-import { removeAuthToken } from '@/app/helpers/authHelper';
+import { getAuthToken, removeAuthToken } from '@/app/helpers/authHelper';
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Nav = () => {
     const router = useRouter();
-    const [Token, setToken] = useState("");
-
+    let token = localStorage.getItem('apiToken');
     useEffect(() => {
-        setToken(localStorage.getItem('apiToken'))
-    }, [])
+        let token = localStorage.getItem('apiToken');
+      }, [])
+    // console.log(token);
     const handleLogout = () => {
         // console.log(111111);
         removeAuthToken();
+        token = localStorage.getItem('apiToken');
         router.refresh();
         router.push('/LoginUser');
     };
@@ -28,7 +28,7 @@ const Nav = () => {
             <Link href="/Users">Users</Link>
             <Link href="/Profile">Profile</Link>
             
-            {Token ? (
+            {token? (
                 <button onClick={handleLogout}>Logout</button>
             ) : (
                 <Link href="/LoginUser">Login</Link>

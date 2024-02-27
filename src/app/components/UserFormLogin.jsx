@@ -21,23 +21,6 @@ const UserForm = () => {
     router.push("/");
   }
 
-  // headers: {
-  //   Authorization: `Bearer ${token}`
-  // }
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string().required("Password is required")
-  });
-
   const { register, handleSubmit } = useForm()
   const onSubmit = async (data) => {
     // e.preventDefault();
@@ -55,33 +38,8 @@ const UserForm = () => {
       }
     }
 
-    // const res = await fetch('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {
-    //   method: "POST",
-    //   body: JSON.stringify({ ...data }),
-    //   headers: {
-    //       "Content-Type": "application/json",
-    //       // 'Content-Type': 'application/x-www-form-urlencoded',
-    //   }
-    // }, 5000);
+   
   }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setErrorMessage("");
-  //   const res = await fetch('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {
-  //     method: "POST",
-  //     body: JSON.stringify({ formData }),
-  //     "content-type": "application/json",
-  //   });
-
-  //   if (!res.ok) {
-  //     const response = await res.json();
-  //     setErrorMessage(response.message);
-  //   } else {
-  //     router.refresh();
-  //     router.push("/");
-  //   }
-  // };
 
   return (
     <form
@@ -91,7 +49,7 @@ const UserForm = () => {
   >
     <h1>Create New User</h1>
     <label>Full Name</label>
-    <p className="text-red-500">Looi : {errorMessage}</p>
+    <p className="text-red-500">{errorMessage}</p>
     <label>Email</label>
     <input
       id="email"
@@ -100,8 +58,8 @@ const UserForm = () => {
       {...register("email")}
       // onChange={handleChange}
       required={true}
-      // value={formData.email}
-      value="vananh.test@gmail.com"
+      value={formData.email}
+      // value="vananh.test@gmail.com"
       className="m-2 bg-slate-400 rounded"
     />
     <label>Password</label>

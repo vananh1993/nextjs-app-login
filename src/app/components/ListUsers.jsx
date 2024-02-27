@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { checkNullAuthToken } from '@/app/helpers/authHelper';
+import { Link } from 'react-router-dom';
 
 const UsersPage = (props) => {
     const {users} = props;
@@ -40,7 +41,7 @@ const UsersPage = (props) => {
                     <TableCell component="th" scope="row">
                         {row.id}
                     </TableCell>
-                    <TableCell align="left">{row.name}</TableCell>
+                    <TableCell align="left"  color="success"><a href={`/Profile/${row.id}`}>{row.name}</a> </TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     </TableRow>
                 ))}
