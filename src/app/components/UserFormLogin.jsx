@@ -10,11 +10,13 @@ import * as Yup from "yup";
 import { TextField, Button, Grid, Container } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { setAuthToken, hasAuthToken } from '@/app/helpers/authHelper';
+import {useLayoutContext} from '../contexts/layoutContext';
 
 const UserForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const {layoutState, layoutDispatch} = useLayoutContext();
 
   if (hasAuthToken()) {
     router.refresh();
@@ -30,15 +32,14 @@ const UserForm = () => {
       const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {...data});
 
       setAuthToken(res.data.token);
+      layoutDispatch({type: 'SET_LOGIN_STATUS', payload: true});
       router.refresh();
       router.push("/");
     } catch ({response}) {
       if (response.status === 422) {
         setErrorMessage(Object.values(response.data.errors)[0][0]);
       }
-    }
-
-   
+    }   
   }
 
   return (

@@ -3,19 +3,19 @@ import Link from "next/link";
 import { getAuthToken, removeAuthToken } from '@/app/helpers/authHelper';
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import {useLayoutContext} from '../contexts/layoutContext';
 
 const Nav = () => {
     const router = useRouter();
-    let token = localStorage.getItem('apiToken');
-    useEffect(() => {
-        let token = localStorage.getItem('apiToken');
-      }, [])
-    // console.log(token);
+    const {layoutState, layoutDispatch} = useLayoutContext();
+
+    console.log(222, layoutState);
+
     const handleLogout = () => {
         // console.log(111111);
         removeAuthToken();
-        token = localStorage.getItem('apiToken');
-        router.refresh();
+        layoutDispatch({type: 'SET_LOGIN_STATUS', payload: false});
+        // router.refresh();
         router.push('/LoginUser');
     };
     
@@ -28,7 +28,7 @@ const Nav = () => {
             <Link href="/Users">Users</Link>
             <Link href="/Profile">Profile</Link>
             
-            {token? (
+            {layoutState.login_status ? (
                 <button onClick={handleLogout}>Logout</button>
             ) : (
                 <Link href="/LoginUser">Login</Link>

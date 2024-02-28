@@ -1,3 +1,4 @@
+'use client';
 import UserForm from "@/components/UserFormLogin";
 
 const CreateUser = () => {

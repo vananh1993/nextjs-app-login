@@ -10,10 +10,16 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { checkNullAuthToken } from '@/app/helpers/authHelper';
 import { Link } from 'react-router-dom';
+import EditUser from '@/components/UserFormEdit'
+import { useState } from "react";
+
 
 const UsersPage = (props) => {
     const {users} = props;
     // const [errorMessage, setErrorMessage] = useState("");
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+    const [dataUpdate, setDataUpdate] = useState(null);
+
     if (checkNullAuthToken()) {
         // console.log(1111);
        return (<p>Please Login </p>)
@@ -22,32 +28,45 @@ const UsersPage = (props) => {
     
     // console.log(users);
     return (
-        
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell align="left">NAME</TableCell>
-                    <TableCell align="left">EMAIL</TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {users.map((row) => (
-                    <TableRow
-                    key={row.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                    <TableCell component="th" scope="row">
-                        {row.id}
-                    </TableCell>
-                    <TableCell align="left"  color="success"><a href={`/Profile/${row.id}`}>{row.name}</a> </TableCell>
-                    <TableCell align="left">{row.email}</TableCell>
+        <div>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                    <TableRow>
+                        <TableCell>ID</TableCell>
+                        <TableCell align="left">NAME</TableCell>
+                        <TableCell align="left">EMAIL</TableCell>
+                        <TableCell align="left">Edit</TableCell>
                     </TableRow>
-                ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                    {users.map((row) => (
+                        <TableRow
+                        key={row.id}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                        <TableCell component="th" scope="row">
+                            {row.id}
+                        </TableCell>
+                        <TableCell align="left"  color="success"><a href={`/Profile/${row.id}`}>{row.name}</a> </TableCell>
+                        <TableCell align="left">{row.email}</TableCell>
+                        <TableCell align="left" 
+                            onClick={() => {
+                                setIsUpdateModalOpen(true);
+                                setDataUpdate(row.id);
+                            }}
+                        >Edit</TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+            </TableContainer >
+            <EditUser 
+                a={1}
+                isUpdateModalOpen={isUpdateModalOpen}
+                setIsUpdateModalOpen={setIsUpdateModalOpen}
+                dataUpdate={dataUpdate}/>
+        </div>
     )
 }
 
