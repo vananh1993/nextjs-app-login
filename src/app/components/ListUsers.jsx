@@ -53,7 +53,7 @@ const UsersPage = (props) => {
                         <TableCell align="left" 
                             onClick={() => {
                                 setIsUpdateModalOpen(true);
-                                setDataUpdate(row.id);
+                                setDataUpdate(row);
                             }}
                         >Edit</TableCell>
                         </TableRow>
@@ -62,10 +62,11 @@ const UsersPage = (props) => {
                 </Table>
             </TableContainer >
             <EditUser 
-                a={1}
                 isUpdateModalOpen={isUpdateModalOpen}
                 setIsUpdateModalOpen={setIsUpdateModalOpen}
-                dataUpdate={dataUpdate}/>
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                />
         </div>
     )
 }

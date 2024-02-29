@@ -2,11 +2,11 @@
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import {useReducer} from 'react';
+import { useReducer } from "react";
 import "./globals.css";
-import Header from '../app/components/header';
-import layoutContext from './contexts/layoutContext';
-import { hasAuthToken } from '@/app/helpers/authHelper';
+import Header from "../app/components/header";
+import layoutContext from "./contexts/layoutContext";
+import { hasAuthToken } from "@/app/helpers/authHelper";
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
@@ -19,27 +19,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const layoutReducer = (state = {}, action)=> {
+  const layoutReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'SET_LOGIN_STATUS':
-            state = {...state, login_status: action.payload};
-            return state;
-        default:
-            return state;
+      case "SET_LOGIN_STATUS":
+        state = { ...state, login_status: action.payload };
+        return state;
+      default:
+        return state;
     }
   };
 
-  const [layoutState, layoutDispatch] = useReducer(layoutReducer, { login_status: hasAuthToken() });
+  const [layoutState, layoutDispatch] = useReducer(layoutReducer, {
+    login_status: hasAuthToken(),
+  });
   const providerState = {
     layoutState,
-    layoutDispatch
+    layoutDispatch,
   };
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <layoutContext.Provider value={providerState} >
-          <Header/>
+        <layoutContext.Provider value={providerState}>
+          <Header />
           {children}
         </layoutContext.Provider>
       </body>

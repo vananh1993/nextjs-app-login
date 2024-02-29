@@ -9,7 +9,7 @@ const Nav = () => {
     const router = useRouter();
     const {layoutState, layoutDispatch} = useLayoutContext();
 
-    console.log(222, layoutState);
+    // console.log(222, layoutState);
 
     const handleLogout = () => {
         // console.log(111111);
