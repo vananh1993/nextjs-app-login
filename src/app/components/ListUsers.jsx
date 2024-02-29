@@ -8,19 +8,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { checkNullAuthToken } from '@/app/helpers/authHelper';
-import { Link } from 'react-router-dom';
+// import { checkNullAuthToken } from '@/app/helpers/authHelper';
+// import { Link } from 'react-router-dom';
 import EditUser from '@/components/UserFormEdit'
 import { useState } from "react";
+import {useLayoutContext} from '../contexts/layoutContext';
 
 
 const UsersPage = (props) => {
     const {users} = props;
+    const {layoutState} = useLayoutContext();
     // const [errorMessage, setErrorMessage] = useState("");
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
 
-    if (checkNullAuthToken()) {
+    if (!layoutState.login_status) {
         // console.log(1111);
        return (<p>Please Login </p>)
     }

@@ -5,12 +5,13 @@ import React, { useState } from "react";
 import axios from 'axios';
 // import FormControl from '@mui/material/FormControl';
 // or
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import { TextField, Button, Grid, Container } from "@mui/material";
+// import { Formik, Form, Field } from "formik";
+// import * as Yup from "yup";
+// import { TextField, Button, Grid, Container } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { setAuthToken, hasAuthToken } from '@/app/helpers/authHelper';
 import {useLayoutContext} from '../contexts/layoutContext';
+
 
 const UserForm = () => {
   const router = useRouter();
@@ -18,9 +19,9 @@ const UserForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const {layoutState, layoutDispatch} = useLayoutContext();
 
-  if (hasAuthToken()) {
-    router.refresh();
-    router.push("/");
+  if (layoutState.login_status) {
+    // router.refresh();
+    return router.push("/");
   }
 
   const { register, handleSubmit } = useForm()

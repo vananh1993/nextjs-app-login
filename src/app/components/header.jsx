@@ -1,8 +1,8 @@
 'use client'
 import Link from "next/link";
-import { getAuthToken, removeAuthToken } from '@/app/helpers/authHelper';
+import { removeAuthToken } from '@/app/helpers/authHelper';
 import { useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {useLayoutContext} from '../contexts/layoutContext';
 
 const Nav = () => {

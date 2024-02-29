@@ -4,7 +4,7 @@ const CreateUser = async () => {
     const response = await axios.get("https://dvinci.pro/the-gioi-an-dam-training/api/api/user/all");
     const {users} = response.data;
   return (
-    <div className="flex users">
+    <div className=" users">
       <List users={users ? users : []}/>
     </div>
   );

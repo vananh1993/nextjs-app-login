@@ -30,18 +30,15 @@ const EditUser = (props) => {
     const handleCloseCreateModal = () => {
         setIsUpdateModalOpen(false);
         setDataUpdate(null);
+        // console.log(dataUpdate);
     }
-    // let dataProps = dataUpdate;
-    // useEffect(() => {
-    //     dataProps = dataUpdate;
-    // });
-    // console.log(dataProps);
+
     const { register, handleSubmit } = useForm()
 
     const onSubmit = async (data) => {
         // e.preventDefault();
         // setErrorMessage("");
-        console.log(data);
+        // console.log(data);
         axios.put(`https://dvinci.pro/the-gioi-an-dam-training/api/api/users/${dataProps?.id}`, { ...data },  {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('apiToken')}`,
@@ -57,7 +54,7 @@ const EditUser = (props) => {
             console.error('Error:', error);
         
         });
-      }
+    }
 
     return (
         <div>

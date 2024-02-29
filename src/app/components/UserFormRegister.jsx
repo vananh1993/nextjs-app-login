@@ -3,14 +3,21 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form"
-
+import {useLayoutContext} from '../contexts/layoutContext';
 
 const UserForm = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({});
+  // const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
   const { register, handleSubmit } = useForm()
+
+  const {layoutState} = useLayoutContext();
+
+  if (layoutState.login_status) {
+    // router.refresh();
+    return router.push("/");
+  }
   const onSubmit = async (data) => {
     // e.preventDefault();
     setErrorMessage("");
@@ -32,7 +39,6 @@ const UserForm = () => {
     }
   }
 
-
   return (
     <form
     onSubmit={handleSubmit(onSubmit)}
@@ -42,7 +48,7 @@ const UserForm = () => {
     <h1>Create New User</h1>
     <label>Full Name</label>
 
-    <p>{ErrorMessage}</p>
+    <p>{errorMessage}</p>
     <input
       id="name"
       name="name"

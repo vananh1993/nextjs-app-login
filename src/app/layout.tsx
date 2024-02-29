@@ -19,7 +19,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const layoutReducer = (state = {}, action) => {
+  const layoutReducer = (state = {}, action : any ) => {
     switch (action.type) {
       case "SET_LOGIN_STATUS":
         state = { ...state, login_status: action.payload };
