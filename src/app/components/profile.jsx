@@ -23,7 +23,7 @@ const Profile = () => {
             })
         .then(response => {
             
-            return setData(response.data.user);
+            return setData(response.data);
             // console.log(populateData);
         })
         .catch(error => {
@@ -37,8 +37,9 @@ const Profile = () => {
     return (
         <div>
             <h1>Profile Page</h1>
-            <p> Name : {data.name}</p>
-            <p> Email : {data.email}</p>
+            <p> Name : {data.user?.name}</p>
+            <p> Email : {data.user?.email}</p>
+            <p> Role : {data.role}</p>
         </div>
         
     )

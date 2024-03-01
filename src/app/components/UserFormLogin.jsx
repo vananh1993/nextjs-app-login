@@ -21,7 +21,7 @@ const UserForm = () => {
 
   if (layoutState.login_status) {
     // router.refresh();
-    return router.push("/");
+    router.push("/");
   }
 
   const { register, handleSubmit } = useForm()
@@ -31,8 +31,10 @@ const UserForm = () => {
 
     try {
       const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {...data});
-
-      setAuthToken(res.data.token);
+// 
+      console.log(res.data);
+      setAuthToken(JSON.stringify([res.data.token, res.data.role]));
+      // localStorage.setItem('apiRole', res.data.role)
       layoutDispatch({type: 'SET_LOGIN_STATUS', payload: true});
       router.refresh();
       router.push("/");

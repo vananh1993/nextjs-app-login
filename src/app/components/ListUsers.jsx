@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 // import { checkNullAuthToken } from '@/app/helpers/authHelper';
 // import { Link } from 'react-router-dom';
 import EditUser from '@/components/UserFormEdit'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {useLayoutContext} from '../contexts/layoutContext';
 
 
@@ -21,11 +21,20 @@ const UsersPage = (props) => {
     // const [errorMessage, setErrorMessage] = useState("");
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     if (!layoutState.login_status) {
         // console.log(1111);
        return (<p>Please Login </p>)
     }
+    useEffect(() => {
+        if (localStorage.getItem('apiRole') == 'admin') {
+            // console.log(1111);
+            setIsAdmin(true);
+        }
+    });
+    
+
     // console.log(localStorage.getItem('apiToken'));
     
     // console.log(users);
@@ -38,7 +47,11 @@ const UsersPage = (props) => {
                         <TableCell>ID</TableCell>
                         <TableCell align="left">NAME</TableCell>
                         <TableCell align="left">EMAIL</TableCell>
-                        <TableCell align="left">Edit</TableCell>
+                        {isAdmin ? (
+                          <TableCell align="left">Edit</TableCell>
+                        ) : (
+                            ""
+                        )}
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -52,12 +65,19 @@ const UsersPage = (props) => {
                         </TableCell>
                         <TableCell align="left"  color="success"><a href={`/Profile/${row.id}`}>{row.name}</a> </TableCell>
                         <TableCell align="left">{row.email}</TableCell>
-                        <TableCell align="left" 
-                            onClick={() => {
-                                setIsUpdateModalOpen(true);
-                                setDataUpdate(row);
-                            }}
-                        >Edit</TableCell>
+                        {isAdmin ? (
+                           <TableCell align="left" 
+                           onClick={() => {
+                               setIsUpdateModalOpen(true);
+                               setDataUpdate(row);
+                           }}
+                       >Edit</TableCell>
+                        ) : (
+                            ""
+                        )}
+                        {/* {isAdmin ? (
+                           
+                        )} */}
                         </TableRow>
                     ))}
                     </TableBody>
