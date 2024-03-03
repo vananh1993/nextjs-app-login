@@ -9,4 +9,3 @@ export const hasAuthToken = () => getAuthToken() !== null
 export const checkNullAuthToken = () => getAuthToken() === null
 // isauthtokenequaltonull
 export const removeAuthToken = () => localStorage.removeItem("apiToken");
-

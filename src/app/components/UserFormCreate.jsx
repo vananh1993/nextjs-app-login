@@ -7,14 +7,23 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form"
 import axios from 'axios';
 import { checkNullAuthToken } from '@/app/helpers/authHelper';
+import {useLayoutContext} from '../contexts/layoutContext';
 
 const UserForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
-  if (checkNullAuthToken()) {
+  const {layoutState, layoutDispatch} = useLayoutContext();
+
+  // if (checkNullAuthToken()) {
+  //   return (<p>Please Login </p>)
+  // }
+
+  if (!layoutState.login_status) {
+    // router.refresh();
     return (<p>Please Login </p>)
   }
+
   const { register, handleSubmit } = useForm()
   const onSubmit = async (data) => {
     // e.preventDefault();
