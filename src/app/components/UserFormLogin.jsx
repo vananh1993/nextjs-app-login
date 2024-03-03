@@ -33,7 +33,8 @@ const UserForm = () => {
       const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {...data});
 // 
       console.log(res.data);
-      setAuthToken(JSON.stringify([res.data.token, res.data.role]));
+      setAuthToken(JSON.stringify({token : res.data.token, role: res.data.role }));
+      // [res.data.token, res.data.role]
       // localStorage.setItem('apiRole', res.data.role)
       layoutDispatch({type: 'SET_LOGIN_STATUS', payload: true});
       router.refresh();

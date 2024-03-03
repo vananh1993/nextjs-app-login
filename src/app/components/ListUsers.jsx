@@ -28,7 +28,7 @@ const UsersPage = (props) => {
        return (<p>Please Login </p>)
     }
     useEffect(() => {
-        if (localStorage.getItem('apiRole') == 'admin') {
+        if (JSON.parse(localStorage.getItem('apiToken'))?.role == 'admin') {
             // console.log(1111);
             setIsAdmin(true);
         }
