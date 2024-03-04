@@ -27,9 +27,9 @@ const Nav = () => {
             <Link href="/">Home</Link>
             <Link href="/Users">Users</Link>
             <Link href="/Profile">Profile</Link>
-            <Link href="/CreateUser">Creat User</Link>
+            
             {layoutState.login_status ? (
-                <button onClick={handleLogout}>Logout</button>
+                <><Link href="/CreateUser">Creat User</Link> <button onClick={handleLogout}>Logout</button></>
             ) : (
                 <Link href="/LoginUser">Login</Link>
             )}
