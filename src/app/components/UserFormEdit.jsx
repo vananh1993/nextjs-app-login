@@ -1,10 +1,8 @@
 'use client'
 import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useForm, SubmitHandler } from "react-hook-form"
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import axios from 'axios'
 import { getAuthToken } from '@/app/helpers/authHelper';
 
@@ -27,14 +25,11 @@ const EditUser = (props) => {
         isUpdateModalOpen, setIsUpdateModalOpen, dataUpdate, setDataUpdate
     } = props;
 
-    // console.log(dataUpdate)
     const handleCloseCreateModal = () => {
         setIsUpdateModalOpen(false);
         setDataUpdate(null);
         // console.log(dataUpdate);
     }
-    // console.log(dataUpdate?.name);
-    // const { register, handleSubmit } = useForm()
 
     const { register, reset, handleSubmit } = useForm({
         defaultValues: useMemo(() => {
@@ -81,6 +76,7 @@ const EditUser = (props) => {
                         onSubmit={handleSubmit(onSubmit)}
                         method="post"
                         className="flex flex-col gap-3 w-2/2"
+                        autoComplete="nope"
                     >
                         <h1 className="text-center">Edit User</h1>
                         <label>Full Name</label>
@@ -88,9 +84,10 @@ const EditUser = (props) => {
                             id="name"
                             name="name"
                             type="text"
+                            autoComplete="off"
                             {...register("name")}
                             required={true}
-                            defaultValue={dataUpdate?.name}
+                            // defaultValue={dataUpdate?.name}
                             className="m-2 bg-slate-400 rounded"
                         />
                         <label>Email</label>
@@ -98,8 +95,9 @@ const EditUser = (props) => {
                             id="email"
                             name="email"
                             type="text"
+                            autoComplete="off"
                             {...register("email")}
-                            defaultValue={dataUpdate?.email}
+                            // defaultValue={dataUpdate?.email}
                             required={true}
                             className="m-2 bg-slate-400 rounded"
                         />
@@ -108,6 +106,7 @@ const EditUser = (props) => {
                             id="password"
                             name="password"
                             type="password"
+                            autoComplete="off"
                             {...register("password")}
                             // defaultValue={dataUpdate?.password}
                             // required={true}
