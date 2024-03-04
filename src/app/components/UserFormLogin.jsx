@@ -32,7 +32,7 @@ const UserForm = () => {
     try {
       const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {...data});
 // 
-      console.log(res.data);
+      // console.log(res.data);
       setAuthToken(JSON.stringify({token : res.data.token, role: res.data.role }));
       // [res.data.token, res.data.role]
       // localStorage.setItem('apiRole', res.data.role)

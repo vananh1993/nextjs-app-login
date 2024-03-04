@@ -2,7 +2,7 @@
 // import { useState } from "react";
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import { checkNullAuthToken } from '@/app/helpers/authHelper';
+import { getAuthToken } from '@/app/helpers/authHelper';
 import {useLayoutContext} from '../contexts/layoutContext';
 import { useRouter } from "next/navigation";
 
@@ -12,23 +12,15 @@ const Profile = () => {
 
     const {layoutState, layoutDispatch} = useLayoutContext();
 
-    // if (checkNullAuthToken()) {
-    //   return (<p>Please Login </p>)
-    // }
-
     if (!layoutState.login_status) {
     // router.refresh();
         return (<p>Please Login </p>)
     }
-    // if (checkNullAuthToken()) {
-    //     // console.log(222);
-    //     return (<p>Please Login </p>)
-    // }
     
     useEffect(() => {
         axios.get('https://dvinci.pro/the-gioi-an-dam-training/api/api/profile', {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('apiToken')}`,
+                'Authorization': `Bearer ${getAuthToken()}`,
                 'Content-Type': 'application/json'
             },
             })
@@ -42,9 +34,6 @@ const Profile = () => {
         
         });
     }, []);
-    // const {user} = response.data;
-    // console.log(response );
-    // console.log(data)
     return (
         <div>
             <h1>Profile Page</h1>

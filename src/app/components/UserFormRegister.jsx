@@ -13,11 +13,12 @@ const UserForm = () => {
   const { register, handleSubmit } = useForm()
 
   const {layoutState} = useLayoutContext();
-
+  
   if (layoutState.login_status) {
     // router.refresh();
     return router.push("/");
   }
+
   const onSubmit = async (data) => {
     // e.preventDefault();
     setErrorMessage("");

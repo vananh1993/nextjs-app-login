@@ -1,11 +1,12 @@
 'use client'
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useForm, SubmitHandler } from "react-hook-form"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from 'axios'
+import { getAuthToken } from '@/app/helpers/authHelper';
 
 const style = {
     position: 'absolute',
@@ -32,8 +33,19 @@ const EditUser = (props) => {
         setDataUpdate(null);
         // console.log(dataUpdate);
     }
+    // console.log(dataUpdate?.name);
+    // const { register, handleSubmit } = useForm()
 
-    const { register, handleSubmit } = useForm()
+    const { register, reset, handleSubmit } = useForm({
+        defaultValues: useMemo(() => {
+        //   console.log("User has changed");
+          return dataUpdate;
+        }, [dataUpdate])
+    });
+    useEffect(() => {
+        reset(dataUpdate);
+    }, [dataUpdate]);
+    
 
     const onSubmit = async (data) => {
         // e.preventDefault();
@@ -41,10 +53,10 @@ const EditUser = (props) => {
         // console.log(data);
         axios.put(`https://dvinci.pro/the-gioi-an-dam-training/api/api/users/${dataProps?.id}`, { ...data },  {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('apiToken')}`,
+                'Authorization': `Bearer ${getAuthToken()}`,
                 'Content-Type': 'application/json'
             },
-            })
+        })
         .then(response => {
             handleCloseCreateModal();
             // return setData(response.data.user);

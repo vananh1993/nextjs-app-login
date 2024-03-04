@@ -6,7 +6,7 @@ import React, { useState } from "react";
 // or
 import { useForm, SubmitHandler } from "react-hook-form"
 import axios from 'axios';
-import { checkNullAuthToken } from '@/app/helpers/authHelper';
+import { getAuthToken } from '@/app/helpers/authHelper';
 import {useLayoutContext} from '../contexts/layoutContext';
 
 const UserForm = () => {
@@ -15,23 +15,26 @@ const UserForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const {layoutState, layoutDispatch} = useLayoutContext();
 
-  // if (checkNullAuthToken()) {
-  //   return (<p>Please Login </p>)
-  // }
 
   if (!layoutState.login_status) {
     // router.refresh();
     return (<p>Please Login </p>)
   }
+  // if (JSON.parse(localStorage.getItem('apiToken'))?.role !== 'admin') {
+      
+  //     return <p>Only admin role can edit</p>
+  // }
+  
 
   const { register, handleSubmit } = useForm()
+  // console.log(getAuthToken());
   const onSubmit = async (data) => {
     // e.preventDefault();
     setErrorMessage("");
 
     axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/users', {...data}, {
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('apiToken')}`,
+            'Authorization': `Bearer ${getAuthToken()}`,
             'Content-Type': 'application/json'
         },
     })
