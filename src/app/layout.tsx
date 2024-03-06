@@ -36,7 +36,8 @@ export default function RootLayout({
     layoutState,
     layoutDispatch,
   };
-
+  // console.log(hasAuthToken());
+  
   return (
     <html lang="en">
       <body className={inter.className}>

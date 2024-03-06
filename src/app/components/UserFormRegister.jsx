@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form"
 import {useLayoutContext} from '../contexts/layoutContext';
+import axios from 'axios';
 
 const UserForm = () => {
   const router = useRouter();
@@ -20,24 +21,37 @@ const UserForm = () => {
   }
 
   const onSubmit = async (data) => {
+    const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/register', { ...data },  {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response => {
+        router.refresh();
+        router.push("/LoginUser");
+    })
+    .catch(error => {
+        // console.error('Error:', error.response.data.message);
+        setErrorMessage(error.response.data.message);
+    });
     // e.preventDefault();
-    setErrorMessage("");
-    const res = await fetch('https://dvinci.pro/the-gioi-an-dam-training/api/api/register', {
-      method: "POST",
-      body: JSON.stringify({ ...data }),
-      headers: {
-          "Content-Type": "application/json",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-      }
-    }, 5000);
+    // setErrorMessage("");
+    // const res = await fetch('https://dvinci.pro/the-gioi-an-dam-training/api/api/register', {
+    //   method: "POST",
+    //   body: JSON.stringify({ ...data }),
+    //   headers: {
+    //       "Content-Type": "application/json",
+    //       // 'Content-Type': 'application/x-www-form-urlencoded',
+    //   }
+    // }, 5000);
 
-    if (!res.ok) {
-      const response = await res.json();
-      setErrorMessage(response.message);
-    } else {
-      router.refresh();
-      router.push("/");
-    }
+    // if (!res.ok) {
+    //   const response = await res.json();
+    //   setErrorMessage(response.message);
+    // } else {
+    //   router.refresh();
+    //   router.push("/");
+    // }
   }
 
   return (

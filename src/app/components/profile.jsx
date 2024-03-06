@@ -25,7 +25,7 @@ const Profile = () => {
             },
             })
         .then(response => {
-            
+            // console.log(response.data);
             return setData(response.data);
             // console.log(populateData);
         })

@@ -18,7 +18,7 @@ const Nav = () => {
         // router.refresh();
         router.push('/LoginUser');
     };
-    
+    // console.log(layoutState.login_status);
     return (
     <header className="bg-gray-600 text-black-100">
         <nav className="flex justify-between items-center w-full px-10 py-4">
@@ -31,7 +31,10 @@ const Nav = () => {
             {layoutState.login_status ? (
                 <><Link href="/CreateUser">Creat User</Link> <button onClick={handleLogout}>Logout</button></>
             ) : (
-                <Link href="/LoginUser">Login</Link>
+                <>
+                    <Link href="/LoginUser">Login</Link>
+                    <Link href="/Register">Register</Link>
+                </>
             )}
         </div>
         </nav>

@@ -1,15 +1,8 @@
 'use server'
+import axios from 'axios';
 
 
-export const handleCreateUserAction = async (data: any) => {
+export const handleLoginAction = async (data) => {
 	// console.log(process.env.NEXT_PUBLIC_URL_BACKEND);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL_BACKEND}/users`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-    })
-    return await res.json()
+    return await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', data);
 }

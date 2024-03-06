@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-
+import { getAuthToken } from '@/app/helpers/authHelper';
 
 const UsersPage = (props) => {
 
@@ -12,7 +12,7 @@ const UsersPage = (props) => {
     useEffect(() => {
         axios.get(`https://dvinci.pro/the-gioi-an-dam-training/api/api/users/${id}`, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('apiToken')}`,
+                'Authorization': `Bearer ${getAuthToken()}`,
                 'Content-Type': 'application/json'
             },
             })
@@ -36,7 +36,7 @@ const UsersPage = (props) => {
                     <p> Email : {data.email}</p>
                 </div>
             ) : (
-                <div>Only Admin role can view</div>
+                <div>Please Login</div>
             )}
             
         </div>

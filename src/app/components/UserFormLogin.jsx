@@ -9,7 +9,7 @@ import axios from 'axios';
 // import * as Yup from "yup";
 // import { TextField, Button, Grid, Container } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form"
-import { setAuthToken, hasAuthToken } from '@/app/helpers/authHelper';
+import { setAuthToken } from '@/app/helpers/authHelper';
 import {useLayoutContext} from '../contexts/layoutContext';
 
 
@@ -31,7 +31,11 @@ const UserForm = () => {
 
     try {
       const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {...data});
+// 
+      console.log(res.data);
       setAuthToken(JSON.stringify({token : res.data.token, role: res.data.role }));
+      // [res.data.token, res.data.role]
+      // localStorage.setItem('apiRole', res.data.role)
       layoutDispatch({type: 'SET_LOGIN_STATUS', payload: true});
       router.refresh();
       router.push("/");
