@@ -1,9 +1,27 @@
 export const setAuthToken = (token) => {
-	localStorage.setItem('apiToken', token);
+	if (typeof window !== "undefined" && window.localStorage) {
+		window.localStorage.setItem('apiToken', token);
+	}
 }
 
-export const getAuthToken = () => JSON.parse(localStorage.getItem('apiToken'))?.token
+export const getAuthToken = () => {
+	if (typeof window !== "undefined" && window.localStorage) {
+		return JSON.parse(window.localStorage.getItem('apiToken'))?.token;
+	}
 
-export const hasAuthToken = () => JSON.parse(localStorage.getItem('apiToken')) !== null
+	return null;
+};
 
-export const removeAuthToken = () => localStorage.removeItem("apiToken");
+export const hasAuthToken = () => {
+	if (typeof window !== "undefined" && window.localStorage) {
+		return getAuthToken() !== null;
+	}
+
+	return false;
+};
+
+export const removeAuthToken = () => {
+	if (typeof window !== "undefined" && window.localStorage) {
+		window.localStorage.removeItem("apiToken");
+	}
+};
