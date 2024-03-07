@@ -14,6 +14,7 @@ import EditUser from '@/components/UserFormEdit'
 import { useState, useEffect } from "react";
 import {useLayoutContext} from '../contexts/layoutContext';
 
+import isAuth from "@/app/helpers/isAuth";
 
 const UsersPage = (props) => {
     const {users} = props;
@@ -23,10 +24,10 @@ const UsersPage = (props) => {
     const [dataUpdate, setDataUpdate] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
 
-    if (!layoutState.login_status) {
-        // console.log(1111);
-       return (<p>Please Login </p>)
-    }
+    // if (!layoutState.login_status) {
+    //     // console.log(1111);
+    //    return (<p>Please Login </p>)
+    // }
     useEffect(() => {
         if (JSON.parse(localStorage.getItem('apiToken'))?.role == 'admin') {
             // console.log(1111);
@@ -93,4 +94,5 @@ const UsersPage = (props) => {
     )
 }
 
-export default UsersPage;
+// export default UsersPage;
+export default isAuth(UsersPage);

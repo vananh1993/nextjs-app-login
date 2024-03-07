@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { getAuthToken } from '@/app/helpers/authHelper';
 import {useLayoutContext} from '../contexts/layoutContext';
 import { useRouter } from "next/navigation";
+import isAuth from "@/app/helpers/isAuth";
+
 
 const Profile = () => {
     const router = useRouter();
@@ -12,10 +14,10 @@ const Profile = () => {
 
     const {layoutState, layoutDispatch} = useLayoutContext();
 
-    if (!layoutState.login_status) {
-    // router.refresh();
-        return (<p>Please Login </p>)
-    }
+    // if (!layoutState.login_status) {
+    // // router.refresh();
+    //     return (<p>Please Login </p>)
+    // }
     
     useEffect(() => {
         axios.get('https://dvinci.pro/the-gioi-an-dam-training/api/api/profile', {
@@ -45,4 +47,5 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+// export default Profile;
+export default isAuth(Profile);

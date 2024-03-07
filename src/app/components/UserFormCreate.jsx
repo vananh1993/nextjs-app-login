@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import axios from 'axios';
 import { getAuthToken } from '@/app/helpers/authHelper';
 import {useLayoutContext} from '../contexts/layoutContext';
+import isAuth from "@/app/helpers/isAuth";
 
 const UserForm = () => {
   const router = useRouter();
@@ -16,10 +17,10 @@ const UserForm = () => {
   const {layoutState, layoutDispatch} = useLayoutContext();
 
 
-  if (!layoutState.login_status) {
-    // router.refresh();
-    return (<p>Please Login </p>)
-  }
+  // if (!layoutState.login_status) {
+  //   // router.refresh();
+  //   return (<p>Please Login </p>)
+  // }
   // if (JSON.parse(localStorage.getItem('apiToken'))?.role !== 'admin') {
       
   //     return <p>Only admin role can edit</p>
@@ -100,4 +101,5 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+// export default UserForm;
+export default isAuth(UserForm);

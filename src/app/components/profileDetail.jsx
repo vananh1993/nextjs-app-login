@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { getAuthToken } from '@/app/helpers/authHelper';
+import isAuth from "@/app/helpers/isAuth";
 
 const UsersPage = (props) => {
 
@@ -43,4 +44,5 @@ const UsersPage = (props) => {
     )
 }
 
-export default UsersPage;
+// export default UsersPage;
+export default isAuth(UsersPage);
