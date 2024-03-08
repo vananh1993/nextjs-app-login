@@ -1,14 +1,16 @@
-'use client'
+// 'use client'
 import Link from "next/link";
 import { removeAuthToken } from '@/app/helpers/authHelper';
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {useLayoutContext} from '../contexts/layoutContext';
+
 
 const Nav = () => {
     const router = useRouter();
+    
     const {layoutState, layoutDispatch} = useLayoutContext();
-
+    // const [isAuthen, setIsAuthen] = useState(false)
     // console.log(222, layoutState);
 
     const handleLogout = () => {
@@ -18,6 +20,10 @@ const Nav = () => {
         // router.refresh();
         router.push('/LoginUser');
     };
+    // useEffect(() => {
+    //     setIsAuthen(layoutState.login_status)
+    // }, [])
+
     // console.log(layoutState.login_status);
     return (
     <header className="bg-gray-600 text-black-100">
@@ -29,7 +35,10 @@ const Nav = () => {
             <Link href="/Profile">Profile</Link>
             
             {layoutState.login_status ? (
-                <><Link href="/CreateUser">Creat User</Link> <button onClick={handleLogout}>Logout</button></>
+                <>
+                    <Link href="/CreateUser">Creat User</Link> 
+                    <button onClick={handleLogout}>Logout</button>
+                </>
             ) : (
                 <>
                     <Link href="/LoginUser">Login</Link>
