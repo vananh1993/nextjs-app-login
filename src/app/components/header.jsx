@@ -1,4 +1,4 @@
-// 'use client'
+'use client'
 import Link from "next/link";
 import { removeAuthToken } from '@/app/helpers/authHelper';
 import { useRouter } from "next/navigation";
@@ -26,28 +26,28 @@ const Nav = () => {
 
     // console.log(layoutState.login_status);
     return (
-    <header className="bg-gray-600 text-black-100">
-        <nav className="flex justify-between items-center w-full px-10 py-4">
-        <div>My Site</div>
-        <div className="flex gap-10">
-            <Link href="/">Home</Link>
-            <Link href="/Users">Users</Link>
-            <Link href="/Profile">Profile</Link>
-            
-            {layoutState.login_status ? (
-                <>
-                    <Link href="/CreateUser">Creat User</Link> 
-                    <button onClick={handleLogout}>Logout</button>
-                </>
-            ) : (
-                <>
-                    <Link href="/LoginUser">Login</Link>
-                    <Link href="/Register">Register</Link>
-                </>
-            )}
+    <nav className="bg-gray-600 text-black-100">
+        <div className="flex justify-between items-center w-full px-10 py-4">
+            <div>My Site</div>
+            <div className="flex gap-10">
+                <Link href="/">Home</Link>
+                <Link href="/Users">Users</Link>
+                <Link href="/Profile">Profile</Link>
+                
+                {layoutState.login_status ? (
+                    <>
+                        <Link href="/CreateUser">Creat User</Link> 
+                        <button onClick={handleLogout}>Logout</button>
+                    </>
+                ) : (
+                    <>
+                        <Link href="/LoginUser">Login</Link>
+                        <Link href="/Register">Register</Link>
+                    </>
+                )}
+            </div>
         </div>
-        </nav>
-    </header>
+    </nav>
     );
 };
 

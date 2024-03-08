@@ -12,13 +12,13 @@ const Profile = () => {
     const router = useRouter();
     const [data, setData] = useState({});
 
-    const {layoutState, layoutDispatch} = useLayoutContext();
+    // const {layoutState, layoutDispatch} = useLayoutContext();
 
     // if (!layoutState.login_status) {
     // // router.refresh();
     //     return (<p>Please Login </p>)
     // }
-    
+    // console.log(getAuthToken());
     useEffect(() => {
         axios.get('https://dvinci.pro/the-gioi-an-dam-training/api/api/profile', {
             headers: {
@@ -35,14 +35,14 @@ const Profile = () => {
             console.error('Error:', error);
         
         });
-    }, []);
+    }, [data]);
     return (
-        <div>
+        <>
             <h1>Profile Page</h1>
             <p> Name : {data.user?.name}</p>
             <p> Email : {data.user?.email}</p>
             <p> Role : {data.role}</p>
-        </div>
+        </>
         
     )
 }

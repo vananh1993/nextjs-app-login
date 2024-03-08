@@ -22,6 +22,10 @@ export default function isAuth(Component) {
       return null;
     }
 
-    return <Component {...props} />;
+    return (
+      <>
+        <Component {...props} />
+      </>
+    );
   };
 }

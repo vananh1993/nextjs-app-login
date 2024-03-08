@@ -44,10 +44,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <div>
         <layoutContext.Provider value={providerState}>
           <Header />
           {children}
         </layoutContext.Provider>
+        </div>
       </body>
     </html>
   );
