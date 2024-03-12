@@ -1,8 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { getAuthToken } from '@/app/helpers/authHelper';
-import isAuth from "@/app/helpers/isAuth";
+import { getAuthToken } from '@/helpers/authHelper';
+import isAuth from "@/helpers/isAuth";
+import request from '@/requests';
+
 
 const UsersPage = (props) => {
 
@@ -11,19 +13,20 @@ const UsersPage = (props) => {
     
     // console.log(id);
     useEffect(() => {
-        axios.get(`https://dvinci.pro/the-gioi-an-dam-training/api/api/users/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${getAuthToken()}`,
-                'Content-Type': 'application/json'
-            },
-            })
+        // axios.get(`https://dvinci.pro/the-gioi-an-dam-training/api/api/users/${id}`, {
+        //     headers: {
+        //         'Authorization': `Bearer ${getAuthToken()}`,
+        //         'Content-Type': 'application/json'
+        //     },
+        //     })
+        request.get(`users/${id}`, {...data})
         .then(response => {
             
             return setData(response.data.user);
             // console.log(populateData);
         })
         .catch(error => {
-            console.error('Error:', error);
+            // console.error('Error:', error);
         
         });
     }, []);
@@ -44,5 +47,5 @@ const UsersPage = (props) => {
     )
 }
 
-// export default UsersPage;
-export default isAuth(UsersPage);
+export default UsersPage;
+// export default isAuth(UsersPage);

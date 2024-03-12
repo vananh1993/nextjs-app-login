@@ -1,13 +1,32 @@
+'use client'
+
+import {useEffect, useState} from 'react';
 import List from "@/components/ListUsers";
 import axios from 'axios'
-const CreateUser = async () => {
-    const response = await axios.get("https://dvinci.pro/the-gioi-an-dam-training/api/api/user/all");
-    const {users} = response.data;
+import isAuth from "@/helpers/isAuth";
+import request from '@/requests';
+
+const ListUser = () => {
+  const [users, setUsers] = useState([]);
+
+  const loadUsers = () => {
+    request.get("user/all")
+        .then(({data}) => {
+          // console.log(data);
+          setUsers(data.users)
+        });
+  };
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+  
   return (
     <div className=" users">
-      <List users={users ? users : []}/>
+      <List users={users}></List>
     </div>
   );
 };
 
-export default CreateUser;
+export default ListUser;
+// export default isAuth(ListUser);

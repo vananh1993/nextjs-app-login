@@ -9,8 +9,9 @@ import axios from 'axios';
 // import * as Yup from "yup";
 // import { TextField, Button, Grid, Container } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form"
-import { setAuthToken } from '@/app/helpers/authHelper';
-import {useLayoutContext} from '../contexts/layoutContext';
+import { setAuthToken } from '@/helpers/authHelper';
+import {useLayoutContext} from '@/contexts/layoutContext';
+import request from '@/requests';
 
 
 const UserForm = () => {
@@ -30,7 +31,8 @@ const UserForm = () => {
     setErrorMessage("");
 
     try {
-      const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {...data});
+      const res = await request.post('login', {...data});
+      // const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/login', {...data});
       setAuthToken(JSON.stringify({token : res.data.token, role: res.data.role }));
       layoutDispatch({type: 'SET_LOGIN_STATUS', payload: true});
       router.refresh();

@@ -2,7 +2,7 @@
 // import { isAuthenticated } from "@/Utils/Auth";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
-import {useLayoutContext} from '../contexts/layoutContext';
+import {useLayoutContext} from '@/contexts/layoutContext';
 
 export default function isAuth(Component) {
   return function IsAuth(props) {
@@ -22,10 +22,6 @@ export default function isAuth(Component) {
       return null;
     }
 
-    return (
-      <>
-        <Component {...props} />
-      </>
-    );
+    return <Component {...props} />;
   };
 }

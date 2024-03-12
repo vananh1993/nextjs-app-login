@@ -14,7 +14,7 @@ export const getAuthToken = () => {
 
 export const hasAuthToken = () => {
 	if (typeof window !== "undefined" && window.localStorage) {
-		return getAuthToken() !== null;
+		return JSON.parse(window.localStorage.getItem('apiToken')) !== null;
 	}
 
 	return false;

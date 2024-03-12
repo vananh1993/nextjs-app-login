@@ -12,9 +12,9 @@ import Paper from '@mui/material/Paper';
 // import { Link } from 'react-router-dom';
 import EditUser from '@/components/UserFormEdit'
 import { useState, useEffect } from "react";
-import {useLayoutContext} from '../contexts/layoutContext';
+import {useLayoutContext} from '@/contexts/layoutContext';
 
-import isAuth from "@/app/helpers/isAuth";
+
 
 const UsersPage = (props) => {
     const {users} = props;
@@ -89,10 +89,10 @@ const UsersPage = (props) => {
                 setIsUpdateModalOpen={setIsUpdateModalOpen}
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
-                />
+            ></EditUser>
         </div>
     )
 }
 
-// export default UsersPage;
-export default isAuth(UsersPage);
+export default UsersPage;
+// export default isAuth(UsersPage);

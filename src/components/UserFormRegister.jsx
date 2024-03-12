@@ -3,8 +3,10 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form"
-import {useLayoutContext} from '../contexts/layoutContext';
+import {useLayoutContext} from '@/contexts/layoutContext';
 import axios from 'axios';
+import request from '@/requests';
+
 
 const UserForm = () => {
   const router = useRouter();
@@ -21,11 +23,7 @@ const UserForm = () => {
   }
 
   const onSubmit = async (data) => {
-    const res = await axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/register', { ...data },  {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    })
+    const res =  await request.post('register', {...data})
     .then(response => {
         router.refresh();
         router.push("/LoginUser");

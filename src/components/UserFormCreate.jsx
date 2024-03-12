@@ -6,9 +6,11 @@ import React, { useState } from "react";
 // or
 import { useForm, SubmitHandler } from "react-hook-form"
 import axios from 'axios';
-import { getAuthToken } from '@/app/helpers/authHelper';
-import {useLayoutContext} from '../contexts/layoutContext';
-import isAuth from "@/app/helpers/isAuth";
+import { getAuthToken } from '@/helpers/authHelper';
+import {useLayoutContext} from '@/contexts/layoutContext';
+import isAuth from "@/helpers/isAuth";
+import request from '@/requests';
+
 
 const UserForm = () => {
   const router = useRouter();
@@ -33,12 +35,13 @@ const UserForm = () => {
     // e.preventDefault();
     setErrorMessage("");
 
-    axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/users', {...data}, {
-        headers: {
-            'Authorization': `Bearer ${getAuthToken()}`,
-            'Content-Type': 'application/json'
-        },
-    })
+    // axios.post('https://dvinci.pro/the-gioi-an-dam-training/api/api/users', {...data}, {
+    //     headers: {
+    //         'Authorization': `Bearer ${getAuthToken()}`,
+    //         'Content-Type': 'application/json'
+    //     },
+    // })
+    request.post('users', {...data})
     .then(response => {
         router.refresh();
         // router.push("/");

@@ -4,7 +4,8 @@ import Modal from '@mui/material/Modal';
 import { useForm, SubmitHandler } from "react-hook-form"
 import React, { useEffect, useMemo } from "react";
 import axios from 'axios'
-import { getAuthToken } from '@/app/helpers/authHelper';
+import { getAuthToken } from '@/helpers/authHelper';
+import request from '@/requests';
 
 const style = {
     position: 'absolute',
@@ -46,12 +47,13 @@ const EditUser = (props) => {
         // e.preventDefault();
         // setErrorMessage("");
         // console.log(data);
-        axios.put(`https://dvinci.pro/the-gioi-an-dam-training/api/api/users/${dataProps?.id}`, { ...data },  {
-            headers: {
-                'Authorization': `Bearer ${getAuthToken()}`,
-                'Content-Type': 'application/json'
-            },
-        })
+        // axios.put(`https://dvinci.pro/the-gioi-an-dam-training/api/api/users/${dataProps?.id}`, { ...data },  {
+        //     headers: {
+        //         'Authorization': `Bearer ${getAuthToken()}`,
+        //         'Content-Type': 'application/json'
+        //     },
+        // })
+        request.put(`users/${dataProps?.id}`, {...data})
         .then(response => {
             handleCloseCreateModal();
             // return setData(response.data.user);

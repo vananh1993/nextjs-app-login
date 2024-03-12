@@ -2,10 +2,11 @@
 // import { useState } from "react";
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import { getAuthToken } from '@/app/helpers/authHelper';
+import { getAuthToken } from '@/helpers/authHelper';
 import {useLayoutContext} from '../contexts/layoutContext';
 import { useRouter } from "next/navigation";
-import isAuth from "@/app/helpers/isAuth";
+import isAuth from "@/helpers/isAuth";
+import request from '@/requests';
 
 
 const Profile = () => {
@@ -19,14 +20,10 @@ const Profile = () => {
     //     return (<p>Please Login </p>)
     // }
     // console.log(getAuthToken());
+    // console.log(request.ignoresAuth());
     useEffect(() => {
-        axios.get('https://dvinci.pro/the-gioi-an-dam-training/api/api/profile', {
-            headers: {
-                'Authorization': `Bearer ${getAuthToken()}`,
-                'Content-Type': 'application/json'
-            },
-            })
-        .then(response => {
+        // console.log(request.ignoresAuth());
+        request.get('profile').then(response => {
             // console.log(response.data);
             return setData(response.data);
             // console.log(populateData);
@@ -35,7 +32,7 @@ const Profile = () => {
             console.error('Error:', error);
         
         });
-    }, [data]);
+    }, []);
     return (
         <>
             <h1>Profile Page</h1>
@@ -47,5 +44,5 @@ const Profile = () => {
     )
 }
 
-// export default Profile;
-export default isAuth(Profile);
+export default Profile;
+// export default isAuth(Profile);
